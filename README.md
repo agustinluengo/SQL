@@ -1,34 +1,16 @@
 # SQL
 SQL repo to save and share queries on MySQL and PostgresSQL
 
-Currently I am using an "employees" DataBase to practice and make some queries,
 
-### employees
-#### departments:
-*    dept_no
-*    dept_name
-#### dept_emp:
-*    emp_no
-*    dept_no
-*    from_date
-*    to_date
-#### dept_manager:
-*    emp_no
-*    dept_no
-*    from_date
-*    to_date
-#### employees:
-*    emp_no
-*    birth_date
-*    first_name
-*    last_name
-*    gender
-*    hire_date
-#### salaries:
-*    emp_no
-*    salary
-#### titles:
-*    emp_no
-*    title
-*    from_date
-*    to_date
+Currently I am using an "employees" DB to practice queries on premise:
+
+
+![employees](https://user-images.githubusercontent.com/83189876/233992130-4609b193-5e2d-4bf3-b772-9548c5710718.jpg)
+
+
+and only, I train on https://www.sql-practice.com/ that counts with the following Schema:
+
+
+
+
+![training_schema](https://user-images.githubusercontent.com/83189876/233992812-2941377c-40f6-43c3-a425-516b830a8c73.PNG)
