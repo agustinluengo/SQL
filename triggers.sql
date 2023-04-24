@@ -1,0 +1,11 @@
+DELIMITER $$
+CREATE TRIGGER NewItemPrice
+BEFORE INSERT
+ON items FOR EACH ROW
+BEGIN
+  IF NEW.price < 0
+  THEN 
+    SET NEW.price = 0;
+  END IF;
+END$$
+DELIMITER ;
