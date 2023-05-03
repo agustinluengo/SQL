@@ -1,14 +1,15 @@
 # SQL
-SQL repo to save and share queries on MySQL and PostgresSQL
+SQL repo to save and share queries on MySQL
 
 
-Currently I am using an "employees" DB to practice queries on premise:
+"employees" schema
 
 
 ![employees](https://user-images.githubusercontent.com/83189876/233992130-4609b193-5e2d-4bf3-b772-9548c5710718.jpg)
 
 
-and only, I train on https://www.sql-practice.com/ that counts with the following Schema:
+
+https://www.sql-practice.com/
 
 
 
