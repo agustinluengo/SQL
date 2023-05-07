@@ -49,11 +49,12 @@ GROUP BY tier
 
 */
 
-/* employees by department */
-
 'Query 6'
-SELECT d2.dept_name, COUNT(d1.emp_no) AS emp_n
+/* amount of employees and the avg salary by department */
+
+SELECT d2.dept_name, COUNT(d1.emp_no) AS emp_n, ROUND(AVG(s.salary),2) AS avg_salary
 FROM employees.dept_emp d1
 LEFT JOIN employees.departments d2 ON d2.dept_no = d1.dept_no
+LEFT JOIN employees.salaries s ON s.emp_no = d1.emp_no
 GROUP BY d1.dept_no
-ORDER BY emp_n DESC;
+ORDER BY emp_n DESC, avg_salary;
