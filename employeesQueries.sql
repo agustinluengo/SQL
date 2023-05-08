@@ -58,3 +58,20 @@ LEFT JOIN employees.departments d2 ON d2.dept_no = d1.dept_no
 LEFT JOIN employees.salaries s ON s.emp_no = d1.emp_no
 GROUP BY d1.dept_no
 ORDER BY emp_n DESC, avg_salary;
+
+
+WITH depts AS
+(SELECT d1.dept_no, d2.dept_name, emp_no FROM dept_emp d1 LEFT JOIN departments d2 ON d1.dept_no = d2.dept_no)
+
+'Query 7'
+/* Salary rank and department */
+
+SELECT DISTINCT(s.emp_no),
+CONCAT(e.first_name,' ',e.last_name) AS full_name,
+FIRST_VALUE(s.salary) OVER (partition by emp_no order by salary DESC) AS 'salary', /* this statement is necessary because there are more than a salary for the same emp due to rises */
+depts.dept_name
+FROM employees.salaries s
+LEFT JOIN employees.employees e ON e.emp_no = s.emp_no
+LEFT JOIN depts ON s.emp_no = depts.emp_no 
+ORDER BY salary DESC
+LIMIT 50;
