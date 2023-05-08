@@ -18,38 +18,26 @@ SELECT MAX(hire_date),MIN(hire_date)
 FROM employees.employees;
 
 'Query 4'
-SELECT emp_no, CONCAT(first_name,' ',last_name) AS 'full_name', YEAR(hire_date) AS hiring,
+/* Adding tiers according to the years working for the company and counting the amount of people in each tier*/
+WITH tiers AS
+(SELECT emp_no, CONCAT(first_name,' ',last_name) AS 'full_name', YEAR(hire_date) AS hiring,
 CASE
 	WHEN YEAR(hire_date) BETWEEN 1985 AND 1990 THEN 3
 	WHEN YEAR(hire_date) BETWEEN 1991 AND 1995 THEN 2
 ELSE 1
 END AS tier
 FROM employees.employees
-/* HAVING tier = 3 */
-ORDER BY tier DESC;
+/* HAVING tier = 3 */)
 
+SELECT
+emp_no, 
+full_name,
+hiring, 
+tier,
+COUNT(tier) OVER (PARTITION BY tier ORDER BY tier DESC) AS amt_tier
+FROM tiers;
 
-
-/* not working yet, I'm trying to have the employees' tier and count amount of ppl within each tier
-
-
-WITH tiers AS 
-(SELECT emp_no, CONCAT(first_name,' ',last_name) AS 'full_name' ,YEAR(hire_date) AS hiring,
-CASE
-	WHEN YEAR(hire_date) BETWEEN 1985 AND 1990 THEN 3
-	WHEN YEAR(hire_date) BETWEEN 1991 AND 1995 THEN 2
-ELSE 1
-END AS tier
-FROM employees.employees
-ORDER BY tier)
-
-SELECT COUNT(tier)
-FROM employees.employees
-GROUP BY tier
-
-*/
-
-'Query 6'
+'Query 5'
 /* amount of employees and the avg salary by department */
 
 SELECT d2.dept_name, COUNT(d1.emp_no) AS emp_n, ROUND(AVG(s.salary),2) AS avg_salary
@@ -60,11 +48,11 @@ GROUP BY d1.dept_no
 ORDER BY emp_n DESC, avg_salary;
 
 
+'Query 6'
+/* Salary rank and department */
+
 WITH depts AS
 (SELECT d1.dept_no, d2.dept_name, emp_no FROM dept_emp d1 LEFT JOIN departments d2 ON d1.dept_no = d2.dept_no)
-
-'Query 7'
-/* Salary rank and department */
 
 SELECT DISTINCT(s.emp_no),
 CONCAT(e.first_name,' ',e.last_name) AS full_name,
@@ -73,5 +61,5 @@ depts.dept_name
 FROM employees.salaries s
 LEFT JOIN employees.employees e ON e.emp_no = s.emp_no
 LEFT JOIN depts ON s.emp_no = depts.emp_no 
-ORDER BY salary DESC
-LIMIT 50;
+ORDER BY salary DESC;
+
